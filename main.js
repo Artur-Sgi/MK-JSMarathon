@@ -50,6 +50,6 @@ function createPlayer(playerClass, player) {
 const $player1 = createPlayer('player1', player1);
 const $player2 = createPlayer('player2', player2);
 
-$arenas = document.getElementById('arenas');
+const $arenas = document.getElementById('arenas');
 $arenas.append($player1);
 $arenas.append($player2);
