@@ -53,7 +53,8 @@ function changeHP(playerObj) {
   const $playerLife = document.querySelector(
     `.player${playerObj.player} .life`
   );
-  playerObj.hp -= getRandomizedDamage();
+  const damagedHp = playerObj.hp - getRandomizedDamage();
+  playerObj.hp = damagedHp < 0 ? 0 : damagedHp;
   $playerLife.style.width = playerObj.hp < 0 ? '0%' : `${playerObj.hp}%`;
 }
 
@@ -64,26 +65,29 @@ function playerWin(name) {
   return $winTitle;
 }
 
+function draw() {
+  const $title = createElement('div', 'winTitle');
+  $title.innerText = `Draw!`;
+
+  return $title;
+}
+
 function getRandomizedDamage() {
   return Math.ceil(Math.random() * 20);
 }
 
 function defineWinner() {
   let winnerName;
-  if (player1.hp < 0) {
+  if (player1.hp == 0 && player2.hp > 0) {
     winnerName = player2.name;
-  } else if (player2.hp < 0) {
+  } else if (player2.hp == 0 && player1.hp > 0) {
     winnerName = player1.name;
   }
-  if (winnerName) {
-    $arenas.appendChild(playerWin(winnerName));
-  }
+  $arenas.appendChild(winnerName ? playerWin(winnerName) : draw());
 }
 
 function blockRandomBtn() {
-  if (player1.hp < 0 || player2.hp < 0) {
-    $randomBtn.disabled = true;
-  }
+  $randomBtn.disabled = true;
 }
 
 const $player1 = createPlayer(player1);
@@ -98,6 +102,8 @@ const $randomBtn = document.querySelector('.button');
 $randomBtn.addEventListener('click', () => {
   changeHP(player2);
   changeHP(player1);
-  defineWinner();
-  blockRandomBtn();
+  if (player1.hp === 0 || player2.hp === 0) {
+    blockRandomBtn();
+    defineWinner();
+  }
 });
