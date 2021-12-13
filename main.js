@@ -46,7 +46,7 @@ function createPlayer(playerObj) {
 function showResult(name) {
   const $title = createElement('div', 'winTitle');
   if (name) {
-    $title.innerText = `${name} win!`;
+    $title.innerText = `${name} wins!`;
   } else {
     $title.innerText = `Draw!`;
   }
