@@ -7,8 +7,15 @@ export default class Player {
     this.hp = 100;
   }
 
-  attack() {
-    console.log(`${this.name} Fight...`);
+  attack(attack, enemy) {
+    if (enemy.hit !== attack.defence) {
+      this.changeHP(enemy.value);
+    } else {
+      const valueDiff = enemy.value - attack.value;
+      const breakProtection = valueDiff > 0 ? valueDiff : 0;
+      this.changeHP(breakProtection);
+    }
+    this.renderHP();
   }
 
   changeHP(damage) {
