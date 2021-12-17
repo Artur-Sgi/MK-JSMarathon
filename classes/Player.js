@@ -8,14 +8,20 @@ export default class Player {
   }
 
   attack(attack, enemy) {
+    const attackResult = { type: 'hit', value: 0 };
     if (enemy.hit !== attack.defence) {
       this.changeHP(enemy.value);
+      attackResult.value = enemy.value;
     } else {
       const valueDiff = enemy.value - attack.value;
       const breakProtection = valueDiff > 0 ? valueDiff : 0;
       this.changeHP(breakProtection);
+      attackResult.type = 'defence';
+      attackResult.value = breakProtection;
     }
     this.renderHP();
+
+    return attackResult;
   }
 
   changeHP(damage) {
