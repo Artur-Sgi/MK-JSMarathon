@@ -1,8 +1,6 @@
-function getRandom(limit) {
-  return Math.ceil(Math.random() * limit);
-}
+const getRandom = (limit) => Math.ceil(Math.random() * limit);
 
-function getCurrentTime() {
+const getCurrentTime = () => {
   const currentDate = new Date();
   const options = {
     hour: 'numeric',
@@ -11,6 +9,6 @@ function getCurrentTime() {
   };
 
   return currentDate.toLocaleString('en-US', options);
-}
+};
 
 export { getRandom, getCurrentTime };
