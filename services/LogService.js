@@ -42,7 +42,7 @@ const logs = {
 
 const $chat = document.querySelector('.chat');
 
-const attachLog = (text) => {
+const attachLog = text => {
   const el = `<p>${text}</p>`;
   $chat.insertAdjacentHTML('afterbegin', el);
 };

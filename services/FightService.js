@@ -15,7 +15,7 @@ const createElement = (tag, className) => {
   return $tag;
 };
 
-const createPlayer = (playerObj) => {
+const createPlayer = playerObj => {
   const $character = createElement('div', 'character');
   const $life = createElement('div', 'life');
   const $name = createElement('div', 'name');
@@ -36,7 +36,7 @@ const createPlayer = (playerObj) => {
   return $player;
 };
 
-const showResult = (name) => {
+const showResult = name => {
   const $title = createElement('div', 'loseTitle');
   if (name) {
     $title.innerText = `${name} wins!`;
@@ -77,7 +77,7 @@ const getEnemyAttack = () => {
   };
 };
 
-const getAttack = ($formFight) => {
+const getAttack = $formFight => {
   const attack = {};
   for (let item of $formFight) {
     if (item.checked && item.name === 'hit') {

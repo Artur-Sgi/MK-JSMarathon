@@ -1,4 +1,4 @@
-const getRandom = (limit) => Math.ceil(Math.random() * limit);
+const getRandom = limit => Math.ceil(Math.random() * limit);
 
 const getCurrentTime = () => {
   const currentDate = new Date();
