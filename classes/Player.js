@@ -1,19 +1,22 @@
 export default class Player {
-  constructor(player, name, img, weapon) {
-    this.player = player;
-    this.name = name;
-    this.img = img;
-    this.weapon = weapon;
+  constructor(props) {
+    this.player = props.player;
+    this.name = props.name;
+    this.img = props.img;
+    this.weapon = props.weapon;
     this.hp = 100;
   }
 
-  attack(attack, enemy) {
+  attack = (
+    { value: attackValue, defence: attackDefence },
+    { hit: enemyHit, value: enemyValue, defence: enemyDefence }
+  ) => {
     const attackResult = { type: 'hit', value: 0 };
-    if (enemy.hit !== attack.defence) {
-      this.changeHP(enemy.value);
-      attackResult.value = enemy.value;
+    if (enemyHit !== attackDefence) {
+      this.changeHP(enemyValue);
+      attackResult.value = enemyValue;
     } else {
-      const valueDiff = enemy.value - attack.value;
+      const valueDiff = enemyValue - attackValue;
       const breakProtection = valueDiff > 0 ? valueDiff : 0;
       this.changeHP(breakProtection);
       attackResult.type = 'defence';
@@ -22,20 +25,20 @@ export default class Player {
     this.renderHP();
 
     return attackResult;
-  }
+  };
 
-  changeHP(damage) {
+  changeHP = damage => {
     this.hp -= damage;
     if (this.hp <= 0) {
       this.hp = 0;
     }
-  }
+  };
 
-  elHP() {
+  elHP = () => {
     return document.querySelector(`.player${this.player} .life`);
-  }
+  };
 
-  renderHP() {
+  renderHP = () => {
     this.elHP().style.width = this.hp < 0 ? '0%' : `${this.hp}%`;
-  }
+  };
 }

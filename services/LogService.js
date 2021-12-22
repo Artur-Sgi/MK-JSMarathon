@@ -47,23 +47,23 @@ const attachLog = text => {
   $chat.insertAdjacentHTML('afterbegin', el);
 };
 
-const generateActionText = (attackResult, player1, player2) => {
+const generateActionText = (attackResult, name1, name2, hp2) => {
   const type = attackResult.type;
   const randomLogId = getRandom(logs[type].length - 1);
   const text = logs[type][randomLogId]
-    .replace('[playerKick]', player1.name)
-    .replace('[playerDefence]', player2.name)
+    .replace('[playerKick]', name1)
+    .replace('[playerDefence]', name2)
     .replace('[time]', getCurrentTime())
     .replace('[hp]', attackResult.value)
-    .replace('[hpLeft]', player2.hp);
+    .replace('[hpLeft]', hp2);
 
   return text;
 };
 
-const generateStartText = (player1, player2) => {
+const generateStartText = (name1, name2) => {
   const text = logs['start']
-    .replace('[player1]', player1.name)
-    .replace('[player2]', player2.name)
+    .replace('[player1]', name1)
+    .replace('[player2]', name2)
     .replace('[time]', getCurrentTime());
 
   return text;
@@ -81,22 +81,26 @@ const generateEndText = (winnerName, loserName) => {
 
 const generateDrawText = () => logs['draw'].replace('[time]', getCurrentTime());
 
-const generateLog = (attackResult, player1, player2, winnerName = null) => {
+const generateLog = (
+  attackResult,
+  { name1 },
+  { name: name2, hp: hp2 },
+  winnerName = null
+) => {
   const type =
     typeof attackResult === 'string' ? attackResult : attackResult.type;
 
   let text;
   switch (type) {
     case 'start':
-      text = generateStartText(player1, player2);
+      text = generateStartText(name1, name2);
       break;
     case 'hit':
     case 'defence':
-      text = generateActionText(attackResult, player1, player2);
+      text = generateActionText(attackResult, name1, name2, hp2);
       break;
     case 'end':
-      const loserName =
-        winnerName === player1.name ? player2.name : player1.name;
+      const loserName = winnerName === name1 ? name2 : name1;
       text = generateEndText(winnerName, loserName);
       break;
     case 'draw':
