@@ -7,15 +7,15 @@ const HIT = {
 };
 const ATTACK = ['head', 'body', 'foot'];
 
-function createElement(tag, className) {
+const createElement = (tag, className) => {
   const $tag = document.createElement(tag);
   if (className) {
     $tag.classList.add(className);
   }
   return $tag;
-}
+};
 
-function createPlayer(playerObj) {
+const createPlayer = playerObj => {
   const $character = createElement('div', 'character');
   const $life = createElement('div', 'life');
   const $name = createElement('div', 'name');
@@ -34,9 +34,9 @@ function createPlayer(playerObj) {
   $player.append($character);
 
   return $player;
-}
+};
 
-function showResult(name) {
+const showResult = name => {
   const $title = createElement('div', 'loseTitle');
   if (name) {
     $title.innerText = `${name} wins!`;
@@ -45,9 +45,9 @@ function showResult(name) {
   }
 
   return $title;
-}
+};
 
-function defineWinner(player1, player2) {
+const defineWinner = (player1, player2) => {
   let winnerName;
   if (player1.hp == 0 && player2.hp > 0) {
     winnerName = player2.name;
@@ -56,18 +56,18 @@ function defineWinner(player1, player2) {
   }
 
   return winnerName;
-}
+};
 
-function createReloadButton() {
+const createReloadButton = () => {
   const $reloadEl = createElement('div', 'reloadWrap');
   const $reloadBtn = createElement('button', 'button');
   $reloadBtn.innerText = 'Restart';
   $reloadEl.appendChild($reloadBtn);
 
   return $reloadEl;
-}
+};
 
-function getEnemyAttack() {
+const getEnemyAttack = () => {
   const hit = ATTACK[getRandom(3) - 1];
   const defence = ATTACK[getRandom(3) - 1];
   return {
@@ -75,9 +75,9 @@ function getEnemyAttack() {
     hit,
     defence,
   };
-}
+};
 
-function getAttack($formFight) {
+const getAttack = $formFight => {
   const attack = {};
   for (let item of $formFight) {
     if (item.checked && item.name === 'hit') {
@@ -91,7 +91,7 @@ function getAttack($formFight) {
   }
 
   return attack;
-}
+};
 
 export {
   createPlayer,

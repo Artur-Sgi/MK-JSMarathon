@@ -42,12 +42,12 @@ const logs = {
 
 const $chat = document.querySelector('.chat');
 
-function attachLog(text) {
+const attachLog = text => {
   const el = `<p>${text}</p>`;
   $chat.insertAdjacentHTML('afterbegin', el);
-}
+};
 
-function generateActionText(attackResult, player1, player2) {
+const generateActionText = (attackResult, player1, player2) => {
   const type = attackResult.type;
   const randomLogId = getRandom(logs[type].length - 1);
   const text = logs[type][randomLogId]
@@ -58,18 +58,18 @@ function generateActionText(attackResult, player1, player2) {
     .replace('[hpLeft]', player2.hp);
 
   return text;
-}
+};
 
-function generateStartText(player1, player2) {
+const generateStartText = (player1, player2) => {
   const text = logs['start']
     .replace('[player1]', player1.name)
     .replace('[player2]', player2.name)
     .replace('[time]', getCurrentTime());
 
   return text;
-}
+};
 
-function generateEndText(winnerName, loserName) {
+const generateEndText = (winnerName, loserName) => {
   const randomLogId = getRandom(logs['end'].length - 1);
   const text = logs['end'][randomLogId]
     .replace('[playerWins]', winnerName)
@@ -77,13 +77,11 @@ function generateEndText(winnerName, loserName) {
     .replace('[time]', getCurrentTime());
 
   return text;
-}
+};
 
-function generateDrawText() {
-  return logs['draw'].replace('[time]', getCurrentTime());
-}
+const generateDrawText = () => logs['draw'].replace('[time]', getCurrentTime());
 
-function generateLog(attackResult, player1, player2, winnerName = null) {
+const generateLog = (attackResult, player1, player2, winnerName = null) => {
   const type =
     typeof attackResult === 'string' ? attackResult : attackResult.type;
 
@@ -109,6 +107,6 @@ function generateLog(attackResult, player1, player2, winnerName = null) {
   }
 
   attachLog(text);
-}
+};
 
 export { generateLog };
