@@ -5,7 +5,6 @@ import {
   defineWinner,
   showResult,
 } from '../services/FightService.js';
-import { getRandom } from '../services/HelpersService.js';
 import Player from './Player.js';
 
 let player1;
