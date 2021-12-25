@@ -83,7 +83,7 @@ const generateDrawText = () => logs['draw'].replace('[time]', getCurrentTime());
 
 const generateLog = (
   attackResult,
-  { name1 },
+  { name: name1 },
   { name: name2, hp: hp2 },
   winnerName = null
 ) => {
