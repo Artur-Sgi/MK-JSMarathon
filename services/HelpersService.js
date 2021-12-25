@@ -11,4 +11,12 @@ const getCurrentTime = () => {
   return currentDate.toLocaleString('en-US', options);
 };
 
-export { getRandom, getCurrentTime };
+const createElement = (tag, className) => {
+  const $tag = document.createElement(tag);
+  if (className) {
+    $tag.classList.add(className);
+  }
+  return $tag;
+};
+
+export { getRandom, getCurrentTime, createElement };

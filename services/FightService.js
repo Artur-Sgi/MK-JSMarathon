@@ -1,40 +1,4 @@
-import { getRandom } from './HelpersService.js';
-
-const HIT = {
-  head: 30,
-  body: 25,
-  foot: 20,
-};
-const ATTACK = ['head', 'body', 'foot'];
-
-const createElement = (tag, className) => {
-  const $tag = document.createElement(tag);
-  if (className) {
-    $tag.classList.add(className);
-  }
-  return $tag;
-};
-
-const createPlayer = ({ player, hp, name, img }) => {
-  const $character = createElement('div', 'character');
-  const $life = createElement('div', 'life');
-  const $name = createElement('div', 'name');
-  const $progressbar = createElement('div', 'progressbar');
-  const $player = createElement('div', `player${player}`);
-  const $img = createElement('img');
-
-  $life.style.width = `${hp}%`;
-  $name.innerText = name;
-  $img.src = img;
-
-  $progressbar.append($life);
-  $progressbar.append($name);
-  $character.append($img);
-  $player.append($progressbar);
-  $player.append($character);
-
-  return $player;
-};
+import { createElement } from './HelpersService.js';
 
 const showResult = name => {
   const $title = createElement('div', 'loseTitle');
@@ -67,21 +31,10 @@ const createReloadButton = () => {
   return $reloadEl;
 };
 
-const getEnemyAttack = () => {
-  const hit = ATTACK[getRandom(3) - 1];
-  const defence = ATTACK[getRandom(3) - 1];
-  return {
-    value: getRandom(HIT[hit]),
-    hit,
-    defence,
-  };
-};
-
 const getAttack = $formFight => {
   const attack = {};
   for (let item of $formFight) {
     if (item.checked && item.name === 'hit') {
-      attack.value = getRandom(HIT[item.value]);
       attack.hit = item.value;
     }
     if (item.checked && item.name === 'defence') {
@@ -93,11 +46,4 @@ const getAttack = $formFight => {
   return attack;
 };
 
-export {
-  createPlayer,
-  createReloadButton,
-  getEnemyAttack,
-  getAttack,
-  defineWinner,
-  showResult,
-};
+export { createReloadButton, getAttack, defineWinner, showResult };
