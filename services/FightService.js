@@ -15,17 +15,17 @@ const createElement = (tag, className) => {
   return $tag;
 };
 
-const createPlayer = playerObj => {
+const createPlayer = ({ player, hp, name, img }) => {
   const $character = createElement('div', 'character');
   const $life = createElement('div', 'life');
   const $name = createElement('div', 'name');
   const $progressbar = createElement('div', 'progressbar');
-  const $player = createElement('div', `player${playerObj.player}`);
+  const $player = createElement('div', `player${player}`);
   const $img = createElement('img');
 
-  $life.style.width = `${playerObj.hp}%`;
-  $name.innerText = playerObj.name;
-  $img.src = playerObj.img;
+  $life.style.width = `${hp}%`;
+  $name.innerText = name;
+  $img.src = img;
 
   $progressbar.append($life);
   $progressbar.append($name);
